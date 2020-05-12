@@ -1,11 +1,17 @@
 import argparse
 
-from scraper.commands import greeting
+from scraper.commands import crawler
 
 
 def parse():
+    """
+    parse arguments from command line
+    """
     parser = argparse.ArgumentParser(prog='scraper')
-    parser.add_argument('-g', '--greeting', metavar='NAME', default="world", help='greet NAME', dest='name')
+    subparsers = parser.add_subparsers()
 
-    args = parser.parse_args()
-    greeting.execute(args.name)
+    parser_crawler = subparsers.add_parser('crawl')
+    parser_crawler.set_defaults(func=crawler.execute)
+
+    #args = parser.parse_args()
+    crawler.execute()
